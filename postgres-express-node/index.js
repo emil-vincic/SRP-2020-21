@@ -54,6 +54,7 @@ function printMedicalTests({ username = null, tests }) {
 }
 
 async function init() {
+  // hm
   // await assertDatabaseConnectionOk();
   // let user = await getUserByUsername("john");
   // console.log(user);
