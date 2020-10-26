@@ -115,37 +115,37 @@ async function init() {
     // * ===============================
     // * Example: Authenticating a file
     // *--------------------------------
-    const CREATE_TAG = false;
+    // const CREATE_TAG = false;
 
-    if (CREATE_TAG) {
-      // * Authenticate the file
+    // if (CREATE_TAG) {
+    //   // * Authenticate the file
 
-      const input = fs.createReadStream("test.txt");
-      const output = fs.createWriteStream("test.tag");
-      const hmac = crypto.createHmac("sha256", secret);
+    //   const input = fs.createReadStream("test.txt");
+    //   const output = fs.createWriteStream("test.tag");
+    //   const hmac = crypto.createHmac("sha256", secret);
 
-      hmac.update("text.txt"); // ! Protecting the file name
-      input
-        .pipe(hmac) // ! Protecting the file content
-        .pipe(output)
-        .on("finish", () => output.end());
-    } else {
-      // * Verify the file authenticity
+    //   hmac.update("text.txt"); // ! Protecting the file name
+    //   input
+    //     .pipe(hmac) // ! Protecting the file content
+    //     .pipe(output)
+    //     .on("finish", () => output.end());
+    // } else {
+    //   // * Verify the file authenticity
 
-      const input = fs.createReadStream("test.txt");
-      const tag = fs.readFileSync("test.tag");
-      const hmac = crypto.createHmac("sha256", secret); // ! Message authentication code
+    //   const input = fs.createReadStream("test.txt");
+    //   const tag = fs.readFileSync("test.tag");
+    //   const hmac = crypto.createHmac("sha256", secret); // ! Message authentication code
 
-      hmac.update("text.txt");
-      input.pipe(hmac).on("finish", () => {
-        const isMessageAuthentic = crypto.timingSafeEqual(hmac.read(), tag); // ! Compare the auth tags
-        console.log(
-          `The file "test.txt" ${
-            isMessageAuthentic ? "IS" : "IS NOT"
-          } authentic.`
-        );
-      });
-    }
+    //   hmac.update("text.txt");
+    //   input.pipe(hmac).on("finish", () => {
+    //     const isMessageAuthentic = crypto.timingSafeEqual(hmac.read(), tag); // ! Compare the auth tags
+    //     console.log(
+    //       `The file "test.txt" ${
+    //         isMessageAuthentic ? "IS" : "IS NOT"
+    //       } authentic.`
+    //     );
+    //   });
+    // }
   } catch (err) {
     console.log(err.message);
   }
