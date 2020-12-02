@@ -13,6 +13,6 @@ exports.login = async(req, res) => {
         return res.json({ user, token });
     } catch (err) {
         Logger.error(err);
-        return res.status(400).json({ error: { message: err.message } });
+        return res.status(401).json({ error: { message: err.message } });
     }
 };
