@@ -1,8 +1,8 @@
 const {
-  AbilityBuilder,
-  Ability,
-  ForbiddenError,
-  subject,
+    AbilityBuilder,
+    Ability,
+    ForbiddenError,
+    subject,
 } = require("@casl/ability");
 
 // * =============================
@@ -18,53 +18,64 @@ const anonymous = null;
 // *  MedicalTests
 // * -----------------------------
 const MedicalTest_1 = subject("MedicalTest", {
-  id: 1,
-  UserId: 1,
-  test: "Covid",
-  result: "negative",
-  createdAt: new Date().setHours(0, 0, 0),
+    id: 1,
+    UserId: 1,
+    test: "Covid",
+    result: "negative",
+    createdAt: new Date().setHours(0, 0, 0),
 });
 
 console.log(MedicalTest_1.__caslSubjectType__);
 
 const MedicalTest_2 = subject("MedicalTest", {
-  id: 2,
-  UserId: 2,
-  test: "Covid",
-  result: "positive",
-  createdAt: new Date().setHours(0, 0, 0),
+    id: 2,
+    UserId: 2,
+    test: "Covid",
+    result: "positive",
+    createdAt: new Date().setHours(0, 0, 0),
 });
 
 const MedicalTest_3 = subject("MedicalTest", {
-  id: 3,
-  UserId: 3,
-  test: "Covid",
-  result: "positive",
-  createdAt: new Date().setHours(0, 0, 0),
+    id: 3,
+    UserId: 3,
+    test: "Covid",
+    result: "positive",
+    createdAt: new Date().setHours(0, 0, 0),
 });
 
 const MedicalTest_4 = subject("MedicalTest", {
-  id: 4,
-  UserId: 3,
-  test: "HIV",
-  result: "positive",
-  createdAt: new Date().setHours(0, 0, 0),
+    id: 4,
+    UserId: 3,
+    test: "HIV",
+    result: "positive",
+    createdAt: new Date().setHours(0, 0, 0),
 });
 
 const MedicalTest_5 = subject("MedicalTest", {
-  id: 5,
-  UserId: 4,
-  test: "Swine flue",
-  result: "positive",
-  createdAt: new Date().setHours(0, 0, 0),
+    id: 5,
+    UserId: 4,
+    test: "Swine flue",
+    result: "positive",
+    createdAt: new Date().setHours(0, 0, 0),
 });
 
 // * =============================
 // *  Roles <--> permissions
 // * -----------------------------
-function defineAdminRules({ can }, user) {}
+function defineAdminRules({ can }, user) {
+    can("manage", "all");
+}
+
 function defineDoctorRules({ can }, user) {}
-function defineUserRules({ can }, user) {}
+
+function defineUserRules({ can }, user) {
+    // can("create", "MedicalTest", { UserId: user.id });
+    // can("read", "MedicalTest", { UserId: user.id });
+    // can("update", "MedicalTest", { UserId: user.id });
+    // can("delete", "MedicalTest", { UserId: user.id });
+    can(["create", "read", "update", "delete"], "MedicalTest", { UserId: user.id, });
+}
+
 function defineAnonymousRules({ can }, user) {}
 
 // * =============================
